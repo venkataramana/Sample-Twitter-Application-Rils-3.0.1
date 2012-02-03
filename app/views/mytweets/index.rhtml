@@ -1,0 +1,19 @@
+
+<%if session[:access_token]%>
+        <%= link_to "Click here to Logout", "/mytweets/session_out/#{session[:access_token]}" %>
+        <% form_for @mytweet, :url=>{:action=> "create"} do |f|%>
+                <%= text_area_tag(:tweet, nil, :size => "80x3", :disabled => false, :title=> "Here-Right here") %>
+                <%= f.submit "Tweet"%>
+        <%end%>
+
+
+        <%@results.each do |res|%>
+                <%#= res["user"]["profile_image_url_https"].html_safe %></br>
+                <%= res["user"]["name"] %></br>
+               <%= res["text"] %>
+               <%= link_to "Delete", mytweet_path(res["id"]), :method=> :delete%></br>
+        <%end%>
+ <%else%>
+         <p> You have successfully logged out </p>
+ <%end%>
+
